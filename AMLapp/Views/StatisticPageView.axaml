@@ -40,10 +40,31 @@
 
       <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
         <StackPanel Spacing="8">
-          <TextBlock Text="Средние баллы по тестам" FontSize="20"/>
+          <TextBlock Text="Средние баллы по тестам, %" FontSize="20"/>
           <lvc:CartesianChart Height="280"
                               Series="{Binding AverageScoreSeries}"
-                              XAxes="{Binding XAxes}" />
+                              XAxes="{Binding XAxes}"
+                              YAxes="{Binding YAxes}" />
+        </StackPanel>
+      </Border>
+
+      <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
+        <StackPanel Spacing="8">
+          <TextBlock Text="Максимальные баллы по тестам, %" FontSize="20"/>
+          <lvc:CartesianChart Height="280"
+                              Series="{Binding MaxScoreSeries}"
+                              XAxes="{Binding XAxes}"
+                              YAxes="{Binding YAxes}" />
+        </StackPanel>
+      </Border>
+
+      <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
+        <StackPanel Spacing="8">
+          <TextBlock Text="Минимальные баллы по тестам, %" FontSize="20"/>
+          <lvc:CartesianChart Height="280"
+                              Series="{Binding MinScoreSeries}"
+                              XAxes="{Binding XAxes}"
+                              YAxes="{Binding YAxes}" />
         </StackPanel>
       </Border>
 
@@ -53,10 +74,10 @@
             <Border BorderThickness="1" BorderBrush="LightGray" Padding="12" Margin="0,4">
               <StackPanel Spacing="4">
                 <TextBlock Text="{Binding TestName}" FontSize="18" FontWeight="SemiBold"/>
-                <TextBlock Text="{Binding AverageScore, StringFormat='Средний балл: {0:F2}'}"/>
-                <TextBlock Text="{Binding MaxScore, StringFormat='Максимальный балл: {0}'}"/>
+                <TextBlock Text="{Binding AverageScore, StringFormat='Средний балл: {0:F2}%'}"/>
+                <TextBlock Text="{Binding MaxScore, StringFormat='Максимальный балл: {0:F2}%'}"/>
                 <TextBlock Text="{Binding MaxScoreUsers, StringFormat='Пользователи с максимумом: {0}'}" TextWrapping="Wrap"/>
-                <TextBlock Text="{Binding MinScore, StringFormat='Минимальный балл: {0}'}"/>
+                <TextBlock Text="{Binding MinScore, StringFormat='Минимальный балл: {0:F2}%'}"/>
                 <TextBlock Text="{Binding MinScoreUsers, StringFormat='Пользователи с минимумом: {0}'}" TextWrapping="Wrap"/>
               </StackPanel>
             </Border>
