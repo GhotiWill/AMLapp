@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AMLapp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+             x:Class="AMLapp.AssignTestPageView"
+             x:DataType="vm:AssignTestPageViewModel">
+  <StackPanel Margin="16" Spacing="10" Width="500">
+    <TextBlock Text="Назначение тестов пользователям" FontSize="24" FontWeight="Bold"/>
+
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}"/>
+      <Button Content="Создать пользователя" Command="{Binding GoToCreateUserCommand}"/>
+      <Button Content="Создать тест" Command="{Binding GoToCreateTestCommand}"/>
+      <Button Content="Выйти" Command="{Binding LogoutCommand}"/>
+    </StackPanel>
+
+    <TextBlock Text="Пользователь"/>
+    <ComboBox ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Name}"/>
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <TextBlock Text="Тест"/>
+    <ComboBox ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Name}"/>
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <Button Content="Назначить тест" Command="{Binding AssignTestCommand}" Width="180"/>
+
+    <TextBlock Text="{Binding SuccessMessage}" Foreground="Green"/>
+    <TextBlock Text="{Binding ErrorMessage}" Foreground="IndianRed" TextWrapping="Wrap"/>
+  </StackPanel>
+</UserControl>

@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AMLapp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AMLapp.AssignedTestsPageView"
+             x:DataType="vm:AssignedTestsPageViewModel">
+  <StackPanel Margin="16" Spacing="12">
+    <TextBlock Text="Назначенные тесты" FontSize="24" FontWeight="Bold"/>
+
+    <ItemsControl ItemsSource="{Binding AssignedTests}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Border BorderBrush="LightGray" BorderThickness="1" Padding="10" Margin="0,4">
+            <StackPanel Spacing="4">
+              <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="16"/>
+              <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+              <Button Content="Пройти" Command="{Binding StartCommand}" Width="100"/>
+            </StackPanel>
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <Button Content="Выйти из аккаунта" Command="{Binding LogoutCommand}" Width="180"/>
+  </StackPanel>
+</UserControl>

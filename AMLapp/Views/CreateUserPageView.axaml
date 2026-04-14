@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:AMLapp.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
+             x:Class="AMLapp.CreateUserPageView"
+             x:DataType="vm:CreateUserPageViewModel">
+  <StackPanel Margin="16" Spacing="10" Width="400">
+    <TextBlock Text="Создание пользователя" FontSize="24" FontWeight="Bold"/>
+
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}"/>
+      <Button Content="Создать тест" Command="{Binding GoToCreateTestCommand}"/>
+      <Button Content="Назначить тест" Command="{Binding GoToAssignTestCommand}"/>
+      <Button Content="Выйти" Command="{Binding LogoutCommand}"/>
+    </StackPanel>
+
+    <TextBlock Text="Логин"/>
+    <TextBox Text="{Binding Login}" Watermark="Введите логин"/>
+
+    <TextBlock Text="Пароль"/>
+    <TextBox Text="{Binding Password}" PasswordChar="*" Watermark="Введите пароль"/>
+
+    <CheckBox Content="Администратор" IsChecked="{Binding IsAdmin}"/>
+
+    <Button Content="Создать пользователя" Command="{Binding CreateUserCommand}"/>
+
+    <TextBlock Text="{Binding SuccessMessage}" Foreground="Green"/>
+    <TextBlock Text="{Binding ErrorMessage}" Foreground="IndianRed" TextWrapping="Wrap"/>
+  </StackPanel>
+</UserControl>

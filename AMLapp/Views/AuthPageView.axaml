@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AMLapp.AuthPageView"
+             xmlns:vm="using:AMLapp.ViewModels"
+             x:DataType="vm:AuthPageViewModel">
+  <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" Width="320" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="10">
+    <TextBlock Grid.Row="0" Text="Авторизация" FontSize="24" HorizontalAlignment="Center" Margin="0,0,0,8"/>
+
+    <TextBlock Grid.Row="1" Text="Логин"/>
+    <TextBox Grid.Row="2" Text="{Binding Login}" Watermark="Введите логин"/>
+
+    <TextBlock Grid.Row="3" Text="Пароль"/>
+    <StackPanel Grid.Row="4" Spacing="10">
+      <TextBox Text="{Binding Password}" PasswordChar="*" Watermark="Введите пароль"/>
+      <Button Content="Войти" Command="{Binding AuthorizeCommand}" HorizontalAlignment="Stretch"/>
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="IndianRed" TextWrapping="Wrap"/>
+    </StackPanel>
+  </Grid>
+</UserControl>
