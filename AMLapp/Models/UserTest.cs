@@ -11,6 +11,8 @@ public partial class UserTest
 
     public int Test { get; set; }
 
+    public bool IsComplete { get; set; }
+
     public virtual Test TestNavigation { get; set; } = null!;
 
     public virtual User UserNavigation { get; set; } = null!;

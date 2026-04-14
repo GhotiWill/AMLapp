@@ -138,6 +138,7 @@ public partial class _43pBardakovExamPrepContext : DbContext
             entity.HasIndex(e => new { e.User, e.Test }, "user_test_unique").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IsComplete).HasColumnName("is_complete");
             entity.Property(e => e.Test).HasColumnName("test");
             entity.Property(e => e.User).HasColumnName("user");
 
