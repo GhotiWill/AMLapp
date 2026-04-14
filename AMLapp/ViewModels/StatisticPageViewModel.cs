@@ -18,7 +18,10 @@ namespace AMLapp.ViewModels
         public ObservableCollection<TestManagementItem> ManagedTests { get; } = new();
 
         public ISeries[] AverageScoreSeries { get; private set; } = Array.Empty<ISeries>();
+        public ISeries[] MaxScoreSeries { get; private set; } = Array.Empty<ISeries>();
+        public ISeries[] MinScoreSeries { get; private set; } = Array.Empty<ISeries>();
         public Axis[] XAxes { get; private set; } = Array.Empty<Axis>();
+        public Axis[] YAxes { get; private set; } = Array.Empty<Axis>();
 
         public ReactiveCommand<Unit, Unit> GoToCreateUserCommand { get; }
         public ReactiveCommand<Unit, Unit> GoToCreateTestCommand { get; }
@@ -65,9 +68,17 @@ namespace AMLapp.ViewModels
                     .ToList();
 
                 var hasScores = userScores.Count > 0;
+                var maxPossibleScore = db.Questions
+                    .Where(q => q.Test == test.Id)
+                    .Select(q => q.Answers.Max(a => (int?)a.Score) ?? 0)
+                    .Sum();
+
                 var average = hasScores ? userScores.Average(x => x.Score) : 0;
                 var max = hasScores ? userScores.Max(x => x.Score) : 0;
                 var min = hasScores ? userScores.Min(x => x.Score) : 0;
+                var averagePercent = maxPossibleScore > 0 ? average / maxPossibleScore * 100 : 0;
+                var maxPercent = maxPossibleScore > 0 ? (double)max / maxPossibleScore * 100 : 0;
+                var minPercent = maxPossibleScore > 0 ? (double)min / maxPossibleScore * 100 : 0;
 
                 var maxUsers = hasScores
                     ? string.Join(", ", userScores.Where(x => x.Score == max).Select(x => x.Login).Distinct())
@@ -80,9 +91,9 @@ namespace AMLapp.ViewModels
                 TestStatistics.Add(new TestStatisticsItem
                 {
                     TestName = test.Name,
-                    AverageScore = Math.Round(average, 2),
-                    MaxScore = max,
-                    MinScore = min,
+                    AverageScore = Math.Round(averagePercent, 2),
+                    MaxScore = Math.Round(maxPercent, 2),
+                    MinScore = Math.Round(minPercent, 2),
                     MaxScoreUsers = maxUsers,
                     MinScoreUsers = minUsers
                 });
@@ -107,8 +118,24 @@ namespace AMLapp.ViewModels
             [
                 new ColumnSeries<double>
                 {
-                    Name = "Средний балл",
+                    Name = "Средний балл, %",
                     Values = TestStatistics.Select(x => x.AverageScore).ToList()
+                }
+            ];
+            MaxScoreSeries =
+            [
+                new ColumnSeries<double>
+                {
+                    Name = "Максимальный балл, %",
+                    Values = TestStatistics.Select(x => x.MaxScore).ToList()
+                }
+            ];
+            MinScoreSeries =
+            [
+                new ColumnSeries<double>
+                {
+                    Name = "Минимальный балл, %",
+                    Values = TestStatistics.Select(x => x.MinScore).ToList()
                 }
             ];
 
@@ -120,11 +147,23 @@ namespace AMLapp.ViewModels
                     LabelsRotation = 15
                 }
             ];
+            YAxes =
+            [
+                new Axis
+                {
+                    Name = "%",
+                    MinLimit = 0,
+                    MaxLimit = 100
+                }
+            ];
 
             this.RaisePropertyChanged(nameof(TotalTests));
             this.RaisePropertyChanged(nameof(TotalUsers));
             this.RaisePropertyChanged(nameof(AverageScoreSeries));
+            this.RaisePropertyChanged(nameof(MaxScoreSeries));
+            this.RaisePropertyChanged(nameof(MinScoreSeries));
             this.RaisePropertyChanged(nameof(XAxes));
+            this.RaisePropertyChanged(nameof(YAxes));
         }
 
         private void DeleteTest(int testId)
@@ -165,8 +204,8 @@ namespace AMLapp.ViewModels
     {
         public string TestName { get; set; } = string.Empty;
         public double AverageScore { get; set; }
-        public int MaxScore { get; set; }
-        public int MinScore { get; set; }
+        public double MaxScore { get; set; }
+        public double MinScore { get; set; }
         public string MaxScoreUsers { get; set; } = string.Empty;
         public string MinScoreUsers { get; set; } = string.Empty;
     }
