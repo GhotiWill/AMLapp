@@ -7,83 +7,98 @@
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="700"
              x:Class="AMLapp.StatisticPageView"
              x:DataType="vm:StatisticPageViewModel">
-  <ScrollViewer>
-    <StackPanel Margin="16" Spacing="12">
-      <TextBlock Text="Статистика администратора" FontSize="28" FontWeight="Bold"/>
-
-      <StackPanel Orientation="Horizontal" Spacing="8">
-        <Button Content="Создать пользователя" Command="{Binding GoToCreateUserCommand}"/>
-        <Button Content="Создать тест" Command="{Binding GoToCreateTestCommand}"/>
-        <Button Content="Назначить тест" Command="{Binding GoToAssignTestCommand}"/>
-        <Button Content="Выйти из аккаунта" Command="{Binding LogoutCommand}"/>
-      </StackPanel>
-
-      <TextBlock Text="Список тестов" FontSize="20"/>
-      <ItemsControl ItemsSource="{Binding ManagedTests}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <Border BorderBrush="LightGray" BorderThickness="1" Padding="8" Margin="0,3">
-              <StackPanel Orientation="Horizontal" Spacing="8">
-                <TextBlock Text="{Binding TestName}" Width="300" VerticalAlignment="Center"/>
-                <Button Content="Редактировать" Command="{Binding EditCommand}"/>
-                <Button Content="Удалить" Command="{Binding DeleteCommand}"/>
-              </StackPanel>
-            </Border>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
-
-      <StackPanel Orientation="Horizontal" Spacing="30">
-        <TextBlock Text="{Binding TotalTests, StringFormat='Количество тестов: {0}'}" FontSize="18"/>
-        <TextBlock Text="{Binding TotalUsers, StringFormat='Количество пользователей: {0}'}" FontSize="18"/>
-      </StackPanel>
-
-      <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
-        <StackPanel Spacing="8">
-          <TextBlock Text="Средние баллы по тестам, %" FontSize="20"/>
-          <lvc:CartesianChart Height="280"
-                              Series="{Binding AverageScoreSeries}"
-                              XAxes="{Binding XAxes}"
-                              YAxes="{Binding YAxes}" />
-        </StackPanel>
-      </Border>
-
-      <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
-        <StackPanel Spacing="8">
-          <TextBlock Text="Максимальные баллы по тестам, %" FontSize="20"/>
-          <lvc:CartesianChart Height="280"
-                              Series="{Binding MaxScoreSeries}"
-                              XAxes="{Binding XAxes}"
-                              YAxes="{Binding YAxes}" />
-        </StackPanel>
-      </Border>
-
-      <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
-        <StackPanel Spacing="8">
-          <TextBlock Text="Минимальные баллы по тестам, %" FontSize="20"/>
-          <lvc:CartesianChart Height="280"
-                              Series="{Binding MinScoreSeries}"
-                              XAxes="{Binding XAxes}"
-                              YAxes="{Binding YAxes}" />
-        </StackPanel>
-      </Border>
-
-      <ItemsControl ItemsSource="{Binding TestStatistics}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate x:DataType="vm:TestStatisticsItem">
-            <Border BorderThickness="1" BorderBrush="LightGray" Padding="12" Margin="0,4">
-              <StackPanel Spacing="4">
-                <TextBlock Text="{Binding TestName}" FontSize="18" FontWeight="SemiBold"/>
-                <TextBlock Text="{Binding AverageScore, StringFormat='Средний балл: {0:F2}%'}"/>
-                <TextBlock Text="{Binding MaxScore, StringFormat='Максимальный балл: {0:F2}%'}"/>
-                <TextBlock Text="{Binding MaxScoreUsers, StringFormat='Пользователи с максимумом: {0}'}" TextWrapping="Wrap"/>
-                <TextBlock Text="{Binding MinScore, StringFormat='Минимальный балл: {0:F2}%'}"/>
-                <TextBlock Text="{Binding MinScoreUsers, StringFormat='Пользователи с минимумом: {0}'}" TextWrapping="Wrap"/>
-              </StackPanel>
-            </Border>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
+  <Grid Margin="16" ColumnDefinitions="220,*">
+    <StackPanel Grid.Column="0" Spacing="8">
+      <TextBlock Text="Навигация" FontSize="20" FontWeight="Bold"/>
+      <Button Content="Статистика" IsEnabled="False"/>
+      <Button Content="Создать пользователя" Command="{Binding GoToCreateUserCommand}"/>
+      <Button Content="Создать тест" Command="{Binding GoToCreateTestCommand}"/>
+      <Button Content="Назначить тест" Command="{Binding GoToAssignTestCommand}"/>
+      <Button Content="Выйти из аккаунта" Command="{Binding LogoutCommand}"/>
     </StackPanel>
-  </ScrollViewer>
+
+    <ScrollViewer Grid.Column="1">
+      <StackPanel Spacing="12">
+        <TextBlock Text="Статистика администратора" FontSize="28" FontWeight="Bold"/>
+
+        <StackPanel Orientation="Horizontal" Spacing="30">
+          <TextBlock Text="{Binding TotalTests, StringFormat='Количество тестов: {0}'}" FontSize="18"/>
+          <TextBlock Text="{Binding TotalUsers, StringFormat='Количество пользователей: {0}'}" FontSize="18"/>
+        </StackPanel>
+
+        <TextBlock Text="Список пользователей" FontSize="20"/>
+        <ItemsControl ItemsSource="{Binding Users}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:AdminUserItem">
+              <Border BorderThickness="1" BorderBrush="LightGray" Padding="8" Margin="0,3">
+                <TextBlock Text="{Binding Login}"/>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <TextBlock Text="Список тестов" FontSize="20"/>
+        <ItemsControl ItemsSource="{Binding ManagedTests}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border BorderBrush="LightGray" BorderThickness="1" Padding="8" Margin="0,3">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                  <TextBlock Text="{Binding TestName}" Width="300" VerticalAlignment="Center"/>
+                  <Button Content="Редактировать" Command="{Binding EditCommand}"/>
+                  <Button Content="Удалить" Command="{Binding DeleteCommand}"/>
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Средние баллы по тестам, %" FontSize="20"/>
+            <lvc:CartesianChart Height="280"
+                                Series="{Binding AverageScoreSeries}"
+                                XAxes="{Binding XAxes}"
+                                YAxes="{Binding YAxes}" />
+          </StackPanel>
+        </Border>
+
+        <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Максимальные баллы по тестам, %" FontSize="20"/>
+            <lvc:CartesianChart Height="280"
+                                Series="{Binding MaxScoreSeries}"
+                                XAxes="{Binding XAxes}"
+                                YAxes="{Binding YAxes}" />
+          </StackPanel>
+        </Border>
+
+        <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
+          <StackPanel Spacing="8">
+            <TextBlock Text="Минимальные баллы по тестам, %" FontSize="20"/>
+            <lvc:CartesianChart Height="280"
+                                Series="{Binding MinScoreSeries}"
+                                XAxes="{Binding XAxes}"
+                                YAxes="{Binding YAxes}" />
+          </StackPanel>
+        </Border>
+
+        <ItemsControl ItemsSource="{Binding TestStatistics}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="vm:TestStatisticsItem">
+              <Border BorderThickness="1" BorderBrush="LightGray" Padding="12" Margin="0,4">
+                <StackPanel Spacing="4">
+                  <TextBlock Text="{Binding TestName}" FontSize="18" FontWeight="SemiBold"/>
+                  <TextBlock Text="{Binding AverageScore, StringFormat='Средний балл: {0:F2}%'}"/>
+                  <TextBlock Text="{Binding MaxScore, StringFormat='Максимальный балл: {0:F2}%'}"/>
+                  <TextBlock Text="{Binding MaxScoreUsers, StringFormat='Пользователи с максимумом: {0}'}" TextWrapping="Wrap"/>
+                  <TextBlock Text="{Binding MinScore, StringFormat='Минимальный балл: {0:F2}%'}"/>
+                  <TextBlock Text="{Binding MinScoreUsers, StringFormat='Пользователи с минимумом: {0}'}" TextWrapping="Wrap"/>
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
+    </ScrollViewer>
+  </Grid>
 </UserControl>

@@ -107,6 +107,12 @@ namespace AMLapp.ViewModels
                 });
             }
 
+            var userTest = db.UserTests.FirstOrDefault(ut => ut.User == userId.Value && ut.Test == TestId);
+            if (userTest is not null)
+            {
+                userTest.IsComplete = true;
+            }
+
             db.SaveChanges();
 
             SuccessMessage = "Тест успешно отправлен.";

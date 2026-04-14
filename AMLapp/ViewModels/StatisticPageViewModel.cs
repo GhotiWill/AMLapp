@@ -16,6 +16,7 @@ namespace AMLapp.ViewModels
 
         public ObservableCollection<TestStatisticsItem> TestStatistics { get; } = new();
         public ObservableCollection<TestManagementItem> ManagedTests { get; } = new();
+        public ObservableCollection<AdminUserItem> Users { get; } = new();
 
         public ISeries[] AverageScoreSeries { get; private set; } = Array.Empty<ISeries>();
         public ISeries[] MaxScoreSeries { get; private set; } = Array.Empty<ISeries>();
@@ -52,6 +53,21 @@ namespace AMLapp.ViewModels
 
             TestStatistics.Clear();
             ManagedTests.Clear();
+            Users.Clear();
+
+            var users = db.Users
+                .Where(u => !u.IsAdmin)
+                .OrderBy(u => u.Login)
+                .Select(u => new AdminUserItem
+                {
+                    Login = u.Login
+                })
+                .ToList();
+
+            foreach (var user in users)
+            {
+                Users.Add(user);
+            }
 
             var tests = db.Tests.OrderBy(t => t.Name).ToList();
 
@@ -198,6 +214,11 @@ namespace AMLapp.ViewModels
         public string TestName { get; set; } = string.Empty;
         public ReactiveCommand<Unit, Unit>? EditCommand { get; set; }
         public ReactiveCommand<Unit, Unit>? DeleteCommand { get; set; }
+    }
+
+    public class AdminUserItem
+    {
+        public string Login { get; set; } = string.Empty;
     }
 
     public class TestStatisticsItem
