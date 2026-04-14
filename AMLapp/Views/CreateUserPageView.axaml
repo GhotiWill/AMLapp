@@ -6,18 +6,21 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
              x:Class="AMLapp.CreateUserPageView"
              x:DataType="vm:CreateUserPageViewModel">
-  <Grid Margin="16" ColumnDefinitions="220,*">
-    <StackPanel Grid.Column="0" Spacing="8">
-      <TextBlock Text="Навигация" FontSize="20" FontWeight="Bold"/>
-      <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}"/>
-      <Button Content="Создать пользователя" IsEnabled="False"/>
-      <Button Content="Создать тест" Command="{Binding GoToCreateTestCommand}"/>
-      <Button Content="Назначить тест" Command="{Binding GoToAssignTestCommand}"/>
-      <Button Content="Выйти" Command="{Binding LogoutCommand}"/>
-    </StackPanel>
+  <Grid Margin="20" ColumnDefinitions="240,*" ColumnSpacing="16">
+    <Border Grid.Column="0" Background="#F4F6FB" BorderBrush="#D8DEE9" BorderThickness="1" CornerRadius="10" Padding="14">
+      <StackPanel Spacing="10">
+        <TextBlock Text="Навигация" FontSize="20" FontWeight="Bold"/>
+        <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Создать пользователя" IsEnabled="False" HorizontalAlignment="Stretch"/>
+        <Button Content="Создать тест" Command="{Binding GoToCreateTestCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Назначить тест" Command="{Binding GoToAssignTestCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Выйти" Command="{Binding LogoutCommand}" HorizontalAlignment="Stretch"/>
+      </StackPanel>
+    </Border>
 
-    <StackPanel Grid.Column="1" Spacing="10" Width="400">
-      <TextBlock Text="Создание пользователя" FontSize="24" FontWeight="Bold"/>
+    <Border Grid.Column="1" BorderBrush="#D8DEE9" BorderThickness="1" Background="#FAFBFE" CornerRadius="10" Padding="16">
+      <StackPanel Spacing="10" Width="420">
+      <TextBlock Text="Создание пользователя" FontSize="26" FontWeight="Bold"/>
 
       <TextBlock Text="Логин"/>
       <TextBox Text="{Binding Login}" Watermark="Введите логин"/>
@@ -27,10 +30,11 @@
 
       <CheckBox Content="Администратор" IsChecked="{Binding IsAdmin}"/>
 
-      <Button Content="Создать пользователя" Command="{Binding CreateUserCommand}"/>
+      <Button Content="Создать пользователя" Command="{Binding CreateUserCommand}" Width="200"/>
 
       <TextBlock Text="{Binding SuccessMessage}" Foreground="Green"/>
       <TextBlock Text="{Binding ErrorMessage}" Foreground="IndianRed" TextWrapping="Wrap"/>
     </StackPanel>
+    </Border>
   </Grid>
 </UserControl>

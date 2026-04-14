@@ -6,15 +6,17 @@
              mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="900"
              x:Class="AMLapp.CreateTestPageView"
              x:DataType="vm:CreateTestPageViewModel">
-  <Grid Margin="16" ColumnDefinitions="220,*">
-    <StackPanel Grid.Column="0" Spacing="8">
-      <TextBlock Text="Навигация" FontSize="20" FontWeight="Bold"/>
-      <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}"/>
-      <Button Content="Создать пользователя" Command="{Binding GoToCreateUserCommand}"/>
-      <Button Content="Создать тест" IsEnabled="False"/>
-      <Button Content="Назначить тест" Command="{Binding GoToAssignTestCommand}"/>
-      <Button Content="Выйти" Command="{Binding LogoutCommand}"/>
-    </StackPanel>
+  <Grid Margin="20" ColumnDefinitions="240,*" ColumnSpacing="16">
+    <Border Grid.Column="0" Background="#F4F6FB" BorderBrush="#D8DEE9" BorderThickness="1" CornerRadius="10" Padding="14">
+      <StackPanel Spacing="10">
+        <TextBlock Text="Навигация" FontSize="20" FontWeight="Bold"/>
+        <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Создать пользователя" Command="{Binding GoToCreateUserCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Создать тест" IsEnabled="False" HorizontalAlignment="Stretch"/>
+        <Button Content="Назначить тест" Command="{Binding GoToAssignTestCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Выйти" Command="{Binding LogoutCommand}" HorizontalAlignment="Stretch"/>
+      </StackPanel>
+    </Border>
 
     <ScrollViewer Grid.Column="1">
       <StackPanel Spacing="10" Width="700">
@@ -26,7 +28,7 @@
         <TextBlock Text="Описание"/>
         <TextBox Text="{Binding Description}" AcceptsReturn="True" Height="80" TextWrapping="Wrap" Watermark="Введите описание"/>
 
-        <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
+        <Border BorderThickness="1" BorderBrush="#D8DEE9" Background="#FAFBFE" CornerRadius="10" Padding="12">
           <StackPanel Spacing="8">
             <TextBlock Text="Добавление вопросов" FontSize="18" FontWeight="SemiBold"/>
             <TextBox Text="{Binding NewQuestionText}" Watermark="Текст вопроса"/>
@@ -34,7 +36,7 @@
           </StackPanel>
         </Border>
 
-        <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
+        <Border BorderThickness="1" BorderBrush="#D8DEE9" Background="#FAFBFE" CornerRadius="10" Padding="12">
           <StackPanel Spacing="8">
             <TextBlock Text="Добавление ответа к выбранному вопросу" FontSize="18" FontWeight="SemiBold"/>
             <ComboBox ItemsSource="{Binding Questions}" SelectedItem="{Binding SelectedQuestion}">
@@ -57,7 +59,7 @@
         <ItemsControl ItemsSource="{Binding Questions}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Border BorderBrush="LightGray" BorderThickness="1" Padding="10" Margin="0,4">
+              <Border BorderBrush="#D8DEE9" BorderThickness="1" Background="#FAFBFE" CornerRadius="8" Padding="10" Margin="0,4">
                 <StackPanel Spacing="4">
                   <TextBlock Text="{Binding Text}" FontWeight="SemiBold"/>
                   <ItemsControl ItemsSource="{Binding Answers}">

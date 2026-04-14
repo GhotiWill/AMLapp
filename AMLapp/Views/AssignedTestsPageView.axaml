@@ -6,13 +6,13 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="AMLapp.AssignedTestsPageView"
              x:DataType="vm:AssignedTestsPageViewModel">
-  <StackPanel Margin="16" Spacing="12">
+  <StackPanel Margin="20" Spacing="12">
     <TextBlock Text="Назначенные тесты" FontSize="24" FontWeight="Bold"/>
 
     <ItemsControl ItemsSource="{Binding AssignedTests}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <Border BorderBrush="LightGray" BorderThickness="1" Padding="10" Margin="0,4">
+          <Border BorderBrush="#D8DEE9" BorderThickness="1" Background="#FAFBFE" CornerRadius="10" Padding="12" Margin="0,4">
             <StackPanel Spacing="4">
               <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="16"/>
               <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
