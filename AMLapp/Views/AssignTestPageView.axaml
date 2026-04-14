@@ -6,37 +6,45 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="500"
              x:Class="AMLapp.AssignTestPageView"
              x:DataType="vm:AssignTestPageViewModel">
-  <StackPanel Margin="16" Spacing="10" Width="500">
-    <TextBlock Text="Назначение тестов пользователям" FontSize="24" FontWeight="Bold"/>
+  <Grid Margin="20" ColumnDefinitions="240,*" ColumnSpacing="16">
+    <Border Grid.Column="0" Background="#F4F6FB" BorderBrush="#D8DEE9" BorderThickness="1" CornerRadius="10" Padding="14">
+      <StackPanel Spacing="10">
+        <TextBlock Text="Навигация" FontSize="20" FontWeight="Bold"/>
+        <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Создать пользователя" Command="{Binding GoToCreateUserCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Создать тест" Command="{Binding GoToCreateTestCommand}" HorizontalAlignment="Stretch"/>
+        <Button Content="Назначить тест" IsEnabled="False" HorizontalAlignment="Stretch"/>
+        <Button Content="Выйти" Command="{Binding LogoutCommand}" HorizontalAlignment="Stretch"/>
+      </StackPanel>
+    </Border>
 
-    <StackPanel Orientation="Horizontal" Spacing="8">
-      <Button Content="Статистика" Command="{Binding GoToStatisticsCommand}"/>
-      <Button Content="Создать пользователя" Command="{Binding GoToCreateUserCommand}"/>
-      <Button Content="Создать тест" Command="{Binding GoToCreateTestCommand}"/>
-      <Button Content="Выйти" Command="{Binding LogoutCommand}"/>
+    <Border Grid.Column="1" BorderBrush="#D8DEE9" BorderThickness="1" Background="#FAFBFE" CornerRadius="10" Padding="16">
+      <StackPanel Spacing="10" Width="500">
+      <TextBlock Text="Назначение тестов пользователям" FontSize="24" FontWeight="Bold"/>
+
+      <TextBlock Text="Пользователь"/>
+      <ComboBox ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Name}"/>
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <TextBlock Text="Тест"/>
+      <ComboBox ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Name}"/>
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <Button Content="Назначить тест" Command="{Binding AssignTestCommand}" Width="180"/>
+
+      <TextBlock Text="{Binding SuccessMessage}" Foreground="Green"/>
+      <TextBlock Text="{Binding ErrorMessage}" Foreground="IndianRed" TextWrapping="Wrap"/>
     </StackPanel>
-
-    <TextBlock Text="Пользователь"/>
-    <ComboBox ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}">
-      <ComboBox.ItemTemplate>
-        <DataTemplate>
-          <TextBlock Text="{Binding Name}"/>
-        </DataTemplate>
-      </ComboBox.ItemTemplate>
-    </ComboBox>
-
-    <TextBlock Text="Тест"/>
-    <ComboBox ItemsSource="{Binding Tests}" SelectedItem="{Binding SelectedTest}">
-      <ComboBox.ItemTemplate>
-        <DataTemplate>
-          <TextBlock Text="{Binding Name}"/>
-        </DataTemplate>
-      </ComboBox.ItemTemplate>
-    </ComboBox>
-
-    <Button Content="Назначить тест" Command="{Binding AssignTestCommand}" Width="180"/>
-
-    <TextBlock Text="{Binding SuccessMessage}" Foreground="Green"/>
-    <TextBlock Text="{Binding ErrorMessage}" Foreground="IndianRed" TextWrapping="Wrap"/>
-  </StackPanel>
+    </Border>
+  </Grid>
 </UserControl>
