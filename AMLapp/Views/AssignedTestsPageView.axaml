@@ -16,7 +16,8 @@
             <StackPanel Spacing="4">
               <TextBlock Text="{Binding Name}" FontWeight="SemiBold" FontSize="16"/>
               <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
-              <Button Content="Пройти" Command="{Binding StartCommand}" Width="100"/>
+              <TextBlock Text="Тест уже пройден" IsVisible="{Binding IsComplete}" Foreground="Green"/>
+              <Button Content="Пройти" Command="{Binding StartCommand}" Width="100" IsVisible="{Binding !IsComplete}"/>
             </StackPanel>
           </Border>
         </DataTemplate>

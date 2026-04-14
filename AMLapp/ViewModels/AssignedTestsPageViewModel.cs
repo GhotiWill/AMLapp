@@ -25,6 +25,7 @@ namespace AMLapp.ViewModels
                     .Select(ut => new
                     {
                         ut.Test,
+                        ut.IsComplete,
                         Name = ut.TestNavigation.Name,
                         Description = ut.TestNavigation.Description
                     })
@@ -40,6 +41,7 @@ namespace AMLapp.ViewModels
                         TestId = testId,
                         Name = testName,
                         Description = test.Description,
+                        IsComplete = test.IsComplete,
                         StartCommand = ReactiveCommand.Create(() =>
                         {
                             MainWindowViewModel.Instance.Page = new TakeTestPageView(testId, testName);
@@ -62,6 +64,7 @@ namespace AMLapp.ViewModels
         public int TestId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public bool IsComplete { get; set; }
         public ReactiveCommand<Unit, Unit>? StartCommand { get; set; }
     }
 }
